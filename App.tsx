@@ -1,118 +1,58 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import { View, Text, StyleSheet,Dimensions,Image } from 'react-native';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import RootNavigator from './src/navigator';
+import Toast, { BaseToast, ErrorToast } from 'react-native-toast-message';
+import { Icons } from './src/assets';
+const screenWidth=Dimensions.get('window').width;
+const App = () => {
+  const toastConfig = {
+    tomatoToast: ({ text1, props }) => (
+      <View style={styles.tomatoToast}>
+        <Image source={Icons.toss} style={styles.img}/>
+        <Text style={styles.tomatoText}>{text1}</Text>
+        <Text style={styles.tomatoText}>{props.uuid}</Text>
+      </View>
+    ),
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-}
+    <>
+      <RootNavigator />
+      <Toast config={toastConfig} />
+    </>
+  )
 
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
+
+
+  // return <SignIn/>
+
+};
 
 export default App;
+const styles = StyleSheet.create({
+  tomatoToast: {
+    height: 60,
+    width: screenWidth-(2*24),
+    backgroundColor: '#F04438',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:10,
+    marginTop:65,
+    marginLeft:24,
+    marginRight:20,
+    flexDirection:'row',
+  },
+  tomatoText: {
+    color: 'white',
+    fontSize: 16,
+    marginLeft:15,
+  },
+  img:
+  {
+    height:28,
+    width:28,
+    resizeMode:'contain',
+
+  },
+})
